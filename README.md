@@ -67,7 +67,7 @@ Dessa forma vamos garantir que o banco de dados também esteja versionado e atua
 </dependency>
 ```
 
-- Segue as imagens desse processo sendo realizado em nosso projeto:
+- Segue as imagens desse processo de adição da dependência sendo realizado em nosso projeto:
 
   <img src="images/pom1.png" alt="Flyway Logo" width="900"/>
 
@@ -96,12 +96,14 @@ spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
 ```
 
-- Segue a imagem desse processo sendo realizado em nosso projeto:
+- Segue a imagem dos ajustes realizados no `application.properties` em nosso projeto:
 
   <img src="images/flyway1.png" alt="H2 Console" width="900"/>
 
+Com essa propriedade definida, o Flyway irá gerenciar automaticamente as migrações do banco de dados, garantindo que o schema esteja sempre atualizado.
 
-> 💡 **Persistência em arquivo (opcional):**
+#### 💡 Persistência em arquivo (opcional)
+
 >
 > ```properties
 > spring.datasource.url=jdbc:h2:file:./data/produtosdb;AUTO_SERVER=TRUE
@@ -136,7 +138,7 @@ Os scripts ficam em:
 src/main/resources/db/migration/
 ```
 
-- Segue as imagens desse processo sendo realizado em nosso projeto:
+- Segue as imagens que demonstram a criação da estrutura de diretórios e arquivos dos scripts de migração sendo realizado em nosso projeto:
 
   <img src="images/flyway2.png" alt="H2 Console" width="900"/>
 
@@ -157,7 +159,7 @@ CREATE TABLE produtos (
 );
 ```
 
-- Segue a imagem desse processo sendo realizado em nosso projeto:
+- Ao concluir essa etapa da implementação, nosso projeto estará semelhante ao que pode ser visto na imagem a seguir:
 
   <img src="images/flyway4.png" alt="H2 Console" width="900"/>
 
@@ -180,7 +182,7 @@ INSERT INTO produtos (nome, ncm, descricao_ncm, preco, quantidade)
 VALUES ('Notebook Dell', '123456', 'Notebook com processador Intel', 2999.99, 10);
 ```
 
-- Segue a imagem desse processo sendo realizado em nosso projeto:
+- Segue a imagem mostrando o projeto com as alterações realizadas:
 
   <img src="images/flyway5.png" alt="H2 Console" width="900"/>
 
@@ -197,15 +199,26 @@ VALUES ('Notebook Dell', '123456', 'Notebook com processador Intel', 2999.99, 10
 3. ✅ Verificar no **console H2** (`http://localhost:8080/h2-console`) que as tabelas e dados foram criados.
 
 📷 **Imagem dos Logs de Execução**
+
+Ao rodar (executar) a aplicação pode ser visualizado nos logs apresentados no console de execução da aplicação informações importantes para fazermos o acompanhamento da execução das migrações. 
+
 - Segue abaixo a imagem com os **logs do microserviço em execução**, evidenciando que as **migrations foram aplicadas com sucesso** pelo Flyway.
 
   <img src="images/flyway6.png" alt="H2 Console" width="900"/>
+
+Com essas informações, podemos ter um melhor entendimento do que ocorreu durante a execução das migrações e identificar possíveis problemas. Assim como ter um histórico detalhado das alterações aplicadas ao banco de dados e a garantia de que o estado do banco está sempre atualizado.
+
+
+### Verificação no H2 Console
 
 - Ao acessar o H2 Console, você verá as tabelas e dados criados.
 
   <img src="images/h2-1.png" alt="H2 Console" width="900"/>
 
   <img src="images/h2-2.png" alt="H2 Console" width="900"/>
+
+
+
 
 ---
 
@@ -249,6 +262,10 @@ UPDATE produtos
 SET categoria = 'INFORMATICA'
 WHERE ncm = '123456';
 ```
+
+- Com essas implementações realizadas, caso seja inserido um novo registro, será realizada automaticamente a validação da integridade  referencial do banco de dados. Por exemplo, se tentarmos inserir um produto com um NCM que já existe, o banco de dados rejeitará a operação, como pode ser observado na imagem a seguir:
+
+  <img src="images/flyway7.png" alt="H2 Console" width="900"/>
 
 ---
 
