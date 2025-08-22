@@ -177,18 +177,6 @@ VALUES ('Notebook Dell', '123456', 'Notebook com processador Intel', 2999.99, 10
 
 
 
-```sql
-INSERT INTO produtos (nome, ncm, descricao_ncm, preco, quantidade)
-VALUES ('Notebook Dell', '123456', 'Notebook com processador Intel', 2999.99, 10);
-```
-
-- Segue a imagem mostrando o projeto com as alterações realizadas:
-
-  <img src="images/flyway5.png" alt="H2 Console" width="900"/>
-
-
-
-
 
 ---
 
